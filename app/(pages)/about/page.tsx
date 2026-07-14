@@ -554,7 +554,7 @@ export default function AboutPage() {
       <img
         src="/6.png"
         alt="GUELLY Morel H. R."
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="absolute inset-0 w-full h-full object-cover object-[78%_top]"
       />
       {/* Overlay dégradé bas */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
