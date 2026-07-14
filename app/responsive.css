@@ -1,0 +1,57 @@
+/* Dynamic font sizes and widths that require CSS inline styles */
+
+/* Clamp font sizes for responsive typography */
+.responsive-heading-hero-sm {
+  font-size: clamp(2rem, 8vw, 3.25rem);
+}
+
+.responsive-heading-hero-lg {
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.responsive-heading-xl {
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+}
+
+.responsive-heading-lg {
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+}
+
+.responsive-heading-md {
+  font-size: clamp(1.4rem, 4vw, 1.875rem);
+}
+
+.responsive-heading-sm {
+  font-size: clamp(1.1rem, 3vw, 1.25rem);
+}
+
+.responsive-heading-xs {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+}
+
+.responsive-heading-hero-xl {
+  font-size: clamp(1.7rem, 6vw, 3rem);
+}
+
+.responsive-heading-roadmap {
+  font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+}
+
+.responsive-heading-faq {
+  font-size: clamp(1.4rem, 4vw, 1.5rem);
+}
+
+/* Additional responsive font sizes */
+.responsive-heading-definition {
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+}
+
+/* Dynamic styles that use CSS variables or must be inline */
+.progress-bar {
+  width: var(--progress-width, 100%);
+}
+
+.connector-line {
+  width: var(--line-width, calc(100% - 40px));
+  left: var(--line-left, calc(50% + 20px));
+}

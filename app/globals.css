@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  /* Rendu « HD » : texte lissé et net (aspect premium sur tous les écrans). */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* Sélection de texte aux couleurs de la marque. */
+::selection {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+/* Anneau de focus net et élégant (accessibilité + finition). */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Images et médias : rendu net, jamais déformé. */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Finitions premium ──────────────────────────────────────────────────────
+   Additives et discrètes : elles ne remplacent jamais un style Tailwind déjà
+   posé (les classes utilitaires ont la priorité sur ces sélecteurs d'éléments).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Grands titres : interlettrage resserré = allure éditoriale haut de gamme. */
+h1,
+h2 {
+  letter-spacing: -0.02em;
+}
+
+/* Micro-interactions : transitions douces (courbe « expo out ») sur tout
+   élément interactif qui n'a pas déjà sa propre transition. */
+a,
+button,
+[role="button"],
+summary,
+label {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity, filter;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 220ms;
+}
+
+/* Barre de défilement fine et discrète, aux tons de la marque. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(37, 99, 235, 0.55) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  background-clip: content-box;
+  border: 2px solid transparent;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2563eb, #1d4ed8);
+  background-clip: content-box;
+}
+
+/* Accessibilité + perf : respecte le réglage système "réduire les animations".
+   Coupe les animations en boucle et accélère les transitions (le contenu
+   apparaît instantanément au lieu de glisser). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Système orbital du Hero (accueil) — anneaux qui tournent + cartes qui
+   gravitent autour de la photo. Géométrie exacte : l'anneau tourne, un bras
+   place la carte sur le cercle, une contre-rotation (même vitesse, sens
+   inverse) garde la carte parfaitement droite et lisible.
+   Le prefers-reduced-motion ci-dessus fige tout proprement (cartes statiques).
+   ───────────────────────────────────────────────────────────────────────── */
+/* Hero orbital system */
+@keyframes heroSpin    { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes heroSpinRev { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+
+.hero-spin-cw  { animation: heroSpin    var(--od, 30s) linear infinite; }
+.hero-spin-ccw { animation: heroSpinRev var(--od, 30s) linear infinite; }
+.hero-ring-spin-cw  { animation: heroSpin    var(--rd, 60s) linear infinite; }
+.hero-ring-spin-ccw { animation: heroSpinRev var(--rd, 60s) linear infinite; }
+
+/* Au survol de la zone, on met les orbites en pause pour laisser lire les cartes. */
+.hero-orbit-stage:hover .hero-spin-cw,
+.hero-orbit-stage:hover .hero-spin-ccw,
+.hero-orbit-stage:hover .hero-ring-spin-cw,
+.hero-orbit-stage:hover .hero-ring-spin-ccw {
+  animation-play-state: paused;
+}
