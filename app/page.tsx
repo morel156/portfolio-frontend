@@ -1163,13 +1163,15 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-white bg-clip-text text-transparent">{hAccent}</span>
             </h1>
 
-            <div className="hero-orbit-stage relative w-64 sm:w-72 mx-auto -mt-2">
+            {/* my-6 : zone tampon verticale pour que les cartes en orbite ne
+                 recouvrent ni le titre au-dessus ni le texte en dessous. */}
+            <div className="hero-orbit-stage relative w-64 sm:w-72 mx-auto my-6">
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div className="w-60 h-60 rounded-full bg-gradient-to-tr from-sky-400/45 via-blue-400/25 to-transparent blur-[65px]" />
                 <div className="absolute w-40 h-40 rounded-full bg-amber-400/25 blur-[55px] translate-x-14 translate-y-16" />
                 {/* Anneaux pointillés qui tournent (sens opposés) */}
                 <div className="absolute w-56 h-56 rounded-full border-2 border-dashed border-cyan-300/25 hero-ring-spin-cw" style={{ "--rd": "60s" } as CSSProperties} />
-                <div className="absolute w-72 h-72 rounded-full border border-dashed border-violet-300/18 hero-ring-spin-ccw" style={{ "--rd": "80s" } as CSSProperties} />
+                <div className="absolute w-64 h-64 rounded-full border border-dashed border-violet-300/18 hero-ring-spin-ccw" style={{ "--rd": "80s" } as CSSProperties} />
               </div>
               <Image
                 src="/111.png"
@@ -1186,8 +1188,9 @@ export default function HomePage() {
                 priority
               />
 
-              {/* ── Cartes en orbite (mobile) : rayons réduits, mêmes principes ── */}
-              <OrbitCard radius={105} angle={52} duration={21} dir="cw">
+              {/* ── Cartes en orbite (mobile) : rayons réduits pour rester dans
+                   la zone tampon, sans déborder sur les textes ── */}
+              <OrbitCard radius={96} angle={52} duration={21} dir="cw">
                 <div className="bg-white/95 backdrop-blur-md rounded-full pl-2 pr-3 py-1.5 flex items-center gap-2 shadow-[0_15px_35px_-10px_rgba(15,23,42,0.5)] border border-white whitespace-nowrap">
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -1197,14 +1200,14 @@ export default function HomePage() {
                 </div>
               </OrbitCard>
 
-              <OrbitCard radius={105} angle={232} duration={21} dir="cw">
+              <OrbitCard radius={96} angle={232} duration={21} dir="cw">
                 <div className="bg-white/95 backdrop-blur-md rounded-2xl px-3 py-2 text-center shadow-[0_15px_35px_-10px_rgba(15,23,42,0.5)] border border-white">
                   <div className="font-['Sora',sans-serif] text-lg font-extrabold bg-gradient-to-br from-blue-600 to-indigo-600 bg-clip-text text-transparent">{heroBadgeTop.number}</div>
                   <div className="text-[10px] font-semibold text-slate-500">{heroBadgeTop.label}</div>
                 </div>
               </OrbitCard>
 
-              <OrbitCard radius={128} angle={145} duration={26} dir="ccw">
+              <OrbitCard radius={110} angle={145} duration={26} dir="ccw">
                 <div className="bg-white/90 backdrop-blur-md rounded-xl px-2.5 py-2 shadow-[0_18px_40px_-12px_rgba(15,23,42,0.55)] border border-white">
                   <div className="flex items-center gap-1.5">
                     <span className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white"><SiReact size={13} /></span>
@@ -1214,7 +1217,7 @@ export default function HomePage() {
                 </div>
               </OrbitCard>
 
-              <OrbitCard radius={128} angle={310} duration={26} dir="ccw">
+              <OrbitCard radius={110} angle={310} duration={26} dir="ccw">
                 <div className="bg-[#0f172a]/90 backdrop-blur-md border border-white/15 text-white rounded-2xl px-3 py-2 text-center shadow-2xl">
                   <div className="font-['Sora',sans-serif] text-lg font-extrabold bg-gradient-to-br from-cyan-300 to-blue-300 bg-clip-text text-transparent">{heroBadgeBottom.number}</div>
                   <div className="text-[10px] text-white/60">{heroBadgeBottom.label}</div>
@@ -1393,7 +1396,9 @@ export default function HomePage() {
       <section id="propos" className="py-16 sm:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <AboutVisual />
-          <div>
+          {/* Mobile : tout est centré comme les autres sections ; à partir de
+               lg (2 colonnes) on repasse à gauche. */}
+          <div className="text-center lg:text-left">
             <Eyebrow text={aEyebrow} />
             <h2
               className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-slate-800 mb-5 leading-snug"
@@ -1403,18 +1408,20 @@ export default function HomePage() {
             <p className="text-slate-500 text-sm leading-relaxed mb-6 whitespace-pre-line">
               {aBody ?? aboutBody}
             </p>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            {/* Bouton et rappel téléphonique côte à côte (le libellé passe
+                 sous le numéro), centrés sur mobile. */}
+            <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6">
               <a href={aCTAHref} className="inline-flex items-center gap-2 bg-[#2563EB] hover:bg-blue-700 text-white font-bold px-7 py-3 rounded-lg text-sm transition-colors">
                 {aCTALabel}
               </a>
-              <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-3 text-sm text-left">
                 <FiPhone size={18} className="text-[#2563EB]" />
                 <div>
-                  <a href={`tel:${aPhone}`} className="font-bold text-slate-800">
+                  <a href={`tel:${aPhone}`} className="block font-bold text-slate-800 leading-tight">
                     {aPhone}
                   </a>
+                  <div className="text-slate-500 text-xs mt-0.5">{aPhoneLabel}</div>
                 </div>
-                <div className="text-slate-500 text-xs">{aPhoneLabel}</div>
               </div>
             </div>
           </div>
@@ -1459,7 +1466,8 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-10 sm:mb-12">
-            <div>
+            {/* Centré sur mobile pour rester cohérent avec les autres sections. */}
+            <div className="text-center lg:text-left">
               <p className="text-blue-400 text-xs font-bold tracking-[3px] uppercase mb-3">{tx.projectsEyebrow}</p>
               <h2
                 className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-white mb-4"
@@ -1704,12 +1712,15 @@ export default function HomePage() {
       <section id="contact" className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-10 lg:gap-12">
           <div>
-            <Eyebrow text={tx.faqEyebrow} />
-            <h2
-              className="responsive-heading-faq font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6"
-            >
-              <Lines text={tx.faqHeadline} />
-            </h2>
+            {/* En-tête centré sur mobile, à gauche en 2 colonnes (lg). */}
+            <div className="text-center lg:text-left">
+              <Eyebrow text={tx.faqEyebrow} />
+              <h2
+                className="responsive-heading-faq font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6"
+              >
+                <Lines text={tx.faqHeadline} />
+              </h2>
+            </div>
             <div className="flex flex-col gap-3">
               {faqsData.map(({ q, a }: any, i: number) => (
                 <div key={i} className={`rounded-xl border overflow-hidden transition-all ${faqOpen === i ? "bg-white border-blue-200 shadow-md shadow-blue-100" : "bg-slate-50 border-slate-100"}`}>
