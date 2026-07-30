@@ -1,10 +1,12 @@
 "use client";
 import NewsletterForm from "@/components/NewsletterForm";
-import { useState, useEffect, useRef, type ReactNode, type CSSProperties } from "react";
+import Lines from "@/components/Lines";
+import { useState, useEffect, useRef, type ReactNode, type CSSProperties, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "./responsive.css";
 import { useSiteData } from "@/lib/useSiteData";
+import { apiBaseUrl } from "@/lib/backend";
 import { mediaUrl } from "@/lib/media";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,7 +21,6 @@ import {
   SiLaravel, SiNextdotjs, SiPython, SiReact, SiTailwindcss,
   SiMysql, SiNodedotjs, SiDocker, SiTypescript, SiPandas
 } from "react-icons/si";
-import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { RiRobot2Line } from "react-icons/ri";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -161,6 +162,8 @@ const projectsHeadline = "Chaque projet,\nune startup réelle.";
 const projectsSubtitle =
   "Chaque projet est conçu comme un vrai produit avec une logique, une expérience, une architecture et une vision claire.";
 const projectsCTA = { label: "Voir tous les projets", href: "/projets" };
+// Par défaut (API endormie ou injoignable) : UN seul vrai projet — StabilIT.
+// Les autres projets remontent depuis le dashboard admin une fois l'API réveillée.
 const projects = [
   {
     icon: <SiLaravel size={20} className="text-[#2563EB]" />,
@@ -170,42 +173,6 @@ const projects = [
     problem: "Les équipes lancent des projets numériques sans évaluer leur faisabilité réelle — complexité sous-estimée, délais explosés, budgets dépassés.",
     impact: "Diagnostic automatique en quelques minutes : complexité, charge, pression temporelle et maturité organisationnelle analysées avec des recommandations ciblées.",
     tags: ["Laravel", "IA", "SaaS"],
-    image: "/Accueil_partie1.png",
-    live: "",
-    repo: "",
-  },
-  {
-    icon: <FiBarChart2 size={20} className="text-[#2563EB]" />,
-    cat: "Data Engineering",
-    title: "Dashboard Analytics",
-    domain: "analytics-dash.io",
-    problem: "Centraliser et visualiser les données business en temps réel.",
-    impact: "Décisions 3× plus rapides grâce à des insights automatisés.",
-    tags: ["Python", "FastAPI"],
-    image: "/Accueil_partie1.png",
-    live: "",
-    repo: "",
-  },
-  {
-    icon: <HiOutlineOfficeBuilding size={20} className="text-[#2563EB]" />,
-    cat: "SaaS",
-    title: "CRM Immobilier",
-    domain: "crm-immo.app",
-    problem: "Digitaliser la gestion des biens et des clients agents.",
-    impact: "Gain de temps de 60% sur la gestion quotidienne.",
-    tags: ["Next.js", "MySQL"],
-    image: "/Accueil_partie1.png",
-    live: "",
-    repo: "",
-  },
-  {
-    icon: <RiRobot2Line size={20} className="text-[#2563EB]" />,
-    cat: "IA / ML",
-    title: "Prédiction ML",
-    domain: "ml-predict.io",
-    problem: "Anticiper les tendances marché via des modèles prédictifs.",
-    impact: "Précision de 87% sur les prédictions à 30 jours.",
-    tags: ["Python", "Scikit"],
     image: "/Accueil_partie1.png",
     live: "",
     repo: "",
@@ -420,33 +387,17 @@ const finalCTAs = [
   { label: "Planifier un échange", href: "contact", icon: <FiCalendar size={16} />, style: "secondary" },
 ];
 
-// ── BLOG (fallback statique si le backend ne répond pas / est vide) ───────────
+// ── BLOG (section accueil) ────────────────────────────────────────────────────
+// AUCUN article de démo : la section n'apparaît que si de vrais articles
+// publiés remontent du dashboard admin.
 const blogEyebrow = "Articles";
 const blogHeadline = "Mon Blog Récent";
 const blogCTA = { label: "Voir tous", href: "/blog" };
-const blogPosts = [
-  {
-    image: "/10.png", icon: <FiDatabase size={36} className="text-[#2563EB]" />, tag: "Data Engineering",
-    title: "Les bases des pipelines ETL avec Python et Pandas", date: "15 Jan 2025", read: "8 min",
-    slug: "pipelines-etl-python-pandas", excerpt: "Découvrez comment construire des pipelines ETL robustes et scalables avec Python.",
-    content: "<p>Contenu à venir.</p>", tags: ["Python", "Pandas"], category: "data",
-    author: { name: "Morel GUELLY" }, images: [] as string[], video: "", videoUrl: "",
-  },
-  {
-    image: "/11.png", icon: <SiLaravel size={36} className="text-[#2563EB]" />, tag: "Laravel",
-    title: "API REST robuste avec Laravel 11 et Sanctum", date: "3 Jan 2025", read: "12 min",
-    slug: "api-rest-laravel-11-sanctum", excerpt: "Construisez une API REST production-ready avec Laravel 11.",
-    content: "<p>Contenu à venir.</p>", tags: ["Laravel", "API"], category: "laravel",
-    author: { name: "Morel GUELLY" }, images: [] as string[], video: "", videoUrl: "",
-  },
-  {
-    image: "/12.png", icon: <SiNextdotjs size={36} className="text-[#2563EB]" />, tag: "Next.js",
-    title: "App Router Next.js 14 : migration et bonnes pratiques", date: "20 Déc 2024", read: "10 min",
-    slug: "nextjs-14-app-router-migration", excerpt: "Migrez votre projet Next.js vers l'App Router avec confiance.",
-    content: "<p>Contenu à venir.</p>", tags: ["Next.js", "React"], category: "react",
-    author: { name: "Morel GUELLY" }, images: [] as string[], video: "", videoUrl: "",
-  },
-];
+type HomeBlogPost = {
+  image: string; icon: ReactNode; tag: string; title: string; date: string;
+  read: string; slug: string; excerpt: string; content: string; tags: string[];
+  category: string; author: { name: string }; images: string[]; video: string; videoUrl: string;
+};
 
 // ── FOOTER ────────────────────────────────────────────────────────────────────
 const footerBrand = "GUELLY Morel";
@@ -477,7 +428,7 @@ const footerNewsletterDesc =
   "Des insights concrets sur le développement full-stack, les architectures modernes et l'IA appliquée au code.";
 const footerNewsletterPlaceholder = "Votre email...";
 const footerSocialIcons = [
-  { icon: <FiGithub size={15} />, href: " https://github.com/morel156", label: "GitHub" },
+  { icon: <FiGithub size={15} />, href: "https://github.com/morel156", label: "GitHub" },
   { icon: <FiLinkedin size={15} />, href: "https://www.linkedin.com/in/morel-guelly-a05a1b420?utm_source=share_via&utm_content=profile&utm_medium=member_android", label: "LinkedIn" },
   { icon: <FiTwitter size={15} />, href: "https://twitter.com/guellymorel", label: "Twitter" },
   { icon: <FiMail size={15} />, href: "mailto:guellymorelhectoreramanou@gmail.com", label: "Email" },
@@ -899,6 +850,35 @@ export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<any | null>(null);
 
+  // ── Formulaire de contact de l'accueil (branché sur POST /api/contact) ──
+  const [homeForm, setHomeForm] = useState({ name: "", email: "", phone: "", message: "", website: "" });
+  const [homeStatus, setHomeStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [homeSlow, setHomeSlow] = useState(false);
+
+  async function handleHomeSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (homeStatus === "loading") return;
+    setHomeStatus("loading");
+    setHomeSlow(false);
+    // Hébergement gratuit : si le backend se réveille, on rassure le visiteur.
+    const slowTimer = setTimeout(() => setHomeSlow(true), 4000);
+    try {
+      const res = await fetch(`${apiBaseUrl()}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(homeForm),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setHomeStatus("success");
+      setHomeForm({ name: "", email: "", phone: "", message: "", website: "" });
+    } catch {
+      setHomeStatus("error");
+    } finally {
+      clearTimeout(slowTimer);
+      setHomeSlow(false);
+    }
+  }
+
   const site = useSiteData();
   const s = site.settings;
   const brand = s?.navbar?.brand ?? navBrand;
@@ -1051,8 +1031,8 @@ export default function HomePage() {
 
   // ── BLOG (accueil) : les 3 derniers articles "à la une" depuis le backend ──
   // Si un article est ajouté/modifié/mis en avant dans le dashboard admin,
-  // il remonte ici automatiquement (via useSiteData) et remplace les anciens.
-  const blogPostsData: typeof blogPosts =
+  // il remonte ici automatiquement (via useSiteData). Aucun repli de démo.
+  const blogPostsData: HomeBlogPost[] =
     site.blog && site.blog.length
       ? (() => {
           const featured = site.blog.filter((a: any) => a.featured);
@@ -1064,38 +1044,32 @@ export default function HomePage() {
             return db - da;
           });
 
-          return sorted.slice(0, 3).map((a: any, i: number) => {
-            const base = blogPosts[i % blogPosts.length];
-            return {
-              image: a.featured_image
-                ? mediaUrl(a.featured_image)
-                : Array.isArray(a.images) && a.images.length
-                ? mediaUrl(a.images[0])
-                : base.image,
-              icon: base.icon,
-              tag: a.category ?? base.tag,
-              title: a.title ?? base.title,
-              date: a.published_at ?? a.date ?? base.date,
-              read: a.reading_time ? `${a.reading_time} min` : base.read,
-              slug: a.slug ?? base.slug,
-              excerpt: a.excerpt ?? base.excerpt,
-              content: a.content ?? base.content,
-              tags: Array.isArray(a.tags) ? a.tags : base.tags,
-              category: a.category ?? base.category,
-              author: { name: a.author ?? base.author.name },
-              images: Array.isArray(a.images) ? a.images.map((p: string) => mediaUrl(p)) : base.images,
-              video: a.video ? mediaUrl(a.video) : "",
-              videoUrl: a.video_url ?? "",
-            };
-          });
+          return sorted.slice(0, 3).map((a: any): HomeBlogPost => ({
+            image: a.featured_image
+              ? mediaUrl(a.featured_image)
+              : Array.isArray(a.images) && a.images.length
+              ? mediaUrl(a.images[0])
+              : "",
+            icon: <FiDatabase size={36} className="text-[#2563EB]" />,
+            tag: a.category ?? "Article",
+            title: a.title ?? "",
+            date: a.published_at ?? a.date ?? "",
+            read: a.reading_time ? `${a.reading_time} min` : "",
+            slug: a.slug ?? "",
+            excerpt: a.excerpt ?? "",
+            content: a.content ?? "",
+            tags: Array.isArray(a.tags) ? a.tags : [],
+            category: a.category ?? "",
+            author: { name: a.author ?? "Morel GUELLY" },
+            images: Array.isArray(a.images) ? a.images.map((p: string) => mediaUrl(p)) : [],
+            video: a.video ? mediaUrl(a.video) : "",
+            videoUrl: a.video_url ?? "",
+          }));
         })()
-      : blogPosts;
+      : [];
 
-  // Section blog de l'accueil : visible seulement s'il y a de vrais articles,
-  // ou si l'API est injoignable (repli démo). Si l'admin a 0 article → masquée.
-  const showBlogSection =
-    (Array.isArray(site.blog) && site.blog.length > 0) ||
-    (site.loaded && site.blog === null);
+  // Section blog de l'accueil : visible UNIQUEMENT s'il y a de vrais articles.
+  const showBlogSection = blogPostsData.length > 0;
 
   useEffect(() => {
     const onScroll = () => setNavSolid(window.scrollY > 60);
@@ -1170,7 +1144,7 @@ export default function HomePage() {
       </nav>
 
       {/* ── HERO ───────────────────────────────────────────────────────────── */}
-      <section className="pt-16 lg:pt-32 relative bg-gradient-to-br from-[#1e3a8a] via-[#2563EB] to-[#3b82f6] min-h-[80vh] lg:min-h-[100vh] flex items-center overflow-hidden">
+      <section className="pt-24 sm:pt-28 lg:pt-32 relative bg-gradient-to-br from-[#1e3a8a] via-[#2563EB] to-[#3b82f6] min-h-[80vh] lg:min-h-[100vh] flex items-center overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#0f172a]/40 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0f172a]/50 to-transparent" />
@@ -1384,7 +1358,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-xl font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug"
             >
-              {definitionHeadline}<br />
+              {definitionHeadline}<br className="hidden sm:block" />{" "}
               <span className="text-[#2563EB]">{definitionHeadlineAccent}</span>
             </h2>
           </div>
@@ -1424,9 +1398,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-slate-800 mb-5 leading-snug"
             >
-              {aHeadline.split("\n").map((line: string, i: number) => (
-                <span key={i}>{line}{i < aHeadline.split("\n").length - 1 && <br />}</span>
-              ))}
+              <Lines text={aHeadline} />
             </h2>
             <p className="text-slate-500 text-sm leading-relaxed mb-6 whitespace-pre-line">
               {aBody ?? aboutBody}
@@ -1456,9 +1428,7 @@ export default function HomePage() {
           <h2
             className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-slate-800 mb-3"
           >
-            {tx.servicesHeadline.split("\n").map((line, i) => (
-              <span key={i}>{line}{i < tx.servicesHeadline.split("\n").length - 1 && <br />}</span>
-            ))}
+            <Lines text={tx.servicesHeadline} />
           </h2>
           <p className="text-slate-500 text-sm mb-10 max-w-xl mx-auto">
             {tx.servicesSubtitle}
@@ -1494,9 +1464,7 @@ export default function HomePage() {
               <h2
                 className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-white mb-4"
               >
-                {tx.projectsHeadline.split("\n").map((line, i) => (
-                  <span key={i}>{line}{i < tx.projectsHeadline.split("\n").length - 1 && <br />}</span>
-                ))}
+                <Lines text={tx.projectsHeadline} />
               </h2>
               <p className="text-white/60 text-sm leading-relaxed mb-7">
                 {tx.projectsSubtitle}
@@ -1522,9 +1490,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug"
             >
-              {tx.processHeadline.split("\n").map((line, i) => (
-                <span key={i}>{line}{i < tx.processHeadline.split("\n").length - 1 && <br />}</span>
-              ))}
+              <Lines text={tx.processHeadline} />
             </h2>
             <p className="text-slate-500 text-sm mt-3 max-w-md mx-auto">
               {tx.processSubtitle}
@@ -1561,7 +1527,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-white leading-snug"
             >
-              {tx.stackHeadline}<br />
+              {tx.stackHeadline}<br className="hidden sm:block" />{" "}
               <span className="text-blue-400">{tx.stackHeadlineAccent}</span>
             </h2>
           </div>
@@ -1604,7 +1570,7 @@ export default function HomePage() {
           <div className="text-center mb-16 sm:mb-24">
             <Eyebrow text={tx.expertiseEyebrow} />
             <h2 className="responsive-heading-xl font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug">
-              {tx.expertiseHeadline}<br />
+              {tx.expertiseHeadline}<br className="hidden sm:block" />{" "}
               <span className="text-[#2563EB]">{tx.expertiseHeadlineAccent}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto">
@@ -1634,7 +1600,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-md font-['Sora',sans-serif] font-extrabold text-white leading-snug"
             >
-              {tx.roadmapHeadline}<br />
+              {tx.roadmapHeadline}<br className="hidden sm:block" />{" "}
               <span className="text-blue-200">{tx.roadmapHeadlineAccent}</span>
             </h2>
           </div>
@@ -1742,9 +1708,7 @@ export default function HomePage() {
             <h2
               className="responsive-heading-faq font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6"
             >
-              {tx.faqHeadline.split("\n").map((line, i) => (
-                <span key={i}>{line}{i < tx.faqHeadline.split("\n").length - 1 && <br />}</span>
-              ))}
+              <Lines text={tx.faqHeadline} />
             </h2>
             <div className="flex flex-col gap-3">
               {faqsData.map(({ q, a }: any, i: number) => (
@@ -1778,15 +1742,53 @@ export default function HomePage() {
               >
                 {tx.contactFormTitle}
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                <input id="contact-name" name="name" type="text" placeholder={contactFormFields.name} className="bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors" />
-                <input id="contact-email" name="email" type="email" placeholder={contactFormFields.email} className="bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors" />
-              </div>
-              <input id="contact-phone" name="phone" type="text" placeholder={contactFormFields.phone} className="w-full bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors mb-3" />
-              <textarea id="contact-message" name="message" rows={4} placeholder={contactFormFields.message} className="w-full bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors resize-none mb-4" />
-              <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:via-indigo-500 hover:to-violet-500 text-white font-bold py-3.5 rounded-lg transition-all text-sm shadow-lg shadow-indigo-700/40">
-                <FiSend size={16} /> {contactFormFields.submit}
-              </button>
+              <form onSubmit={handleHomeSubmit} noValidate={false}>
+                {/* Honeypot anti-bot (invisible) */}
+                <input
+                  type="text"
+                  name="website"
+                  value={homeForm.website}
+                  onChange={(e) => setHomeForm({ ...homeForm, website: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                  <input id="contact-name" name="name" type="text" required value={homeForm.name} onChange={(e) => setHomeForm({ ...homeForm, name: e.target.value })} placeholder={contactFormFields.name} className="bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors" />
+                  <input id="contact-email" name="email" type="email" required value={homeForm.email} onChange={(e) => setHomeForm({ ...homeForm, email: e.target.value })} placeholder={contactFormFields.email} className="bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors" />
+                </div>
+                <input id="contact-phone" name="phone" type="text" value={homeForm.phone} onChange={(e) => setHomeForm({ ...homeForm, phone: e.target.value })} placeholder={contactFormFields.phone} className="w-full bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors mb-3" />
+                <textarea id="contact-message" name="message" rows={4} required value={homeForm.message} onChange={(e) => setHomeForm({ ...homeForm, message: e.target.value })} placeholder={contactFormFields.message} className="w-full bg-white/8 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/40 text-sm outline-none focus:bg-white/12 focus:border-blue-400/40 transition-colors resize-none mb-4" />
+                <button
+                  type="submit"
+                  disabled={homeStatus === "loading"}
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:via-indigo-500 hover:to-violet-500 text-white font-bold py-3.5 rounded-lg transition-all text-sm shadow-lg shadow-indigo-700/40 disabled:opacity-70 disabled:cursor-wait"
+                >
+                  {homeStatus === "loading" ? (
+                    <><FiZap size={16} className="animate-pulse" /> Envoi en cours…</>
+                  ) : homeStatus === "success" ? (
+                    <><FiCheckCircle size={16} /> Message envoyé !</>
+                  ) : (
+                    <><FiSend size={16} /> {contactFormFields.submit}</>
+                  )}
+                </button>
+                {homeStatus === "loading" && homeSlow && (
+                  <p className="mt-3 text-xs text-blue-200/90" role="status">
+                    Le serveur se réveille, l'envoi peut prendre quelques secondes de plus. Merci de patienter…
+                  </p>
+                )}
+                {homeStatus === "success" && (
+                  <p className="mt-3 text-xs text-emerald-300" role="status">
+                    Merci ! Votre message a bien été envoyé — je vous réponds très vite.
+                  </p>
+                )}
+                {homeStatus === "error" && (
+                  <p className="mt-3 text-xs text-red-300" role="status">
+                    L'envoi a échoué. Réessayez, ou écrivez-moi directement par email.
+                  </p>
+                )}
+              </form>
             </div>
           </div>
         </div>
@@ -1804,9 +1806,7 @@ export default function HomePage() {
           <h2
             className="responsive-heading-hero-xl font-['Sora',sans-serif] font-extrabold text-white leading-tight mb-6"
           >
-            {tx.finalHeadlinePart1.split("\n").map((line, i) => (
-              <span key={i}>{line}{i < tx.finalHeadlinePart1.split("\n").length - 1 && <br />}</span>
-            ))}<br />
+            <Lines text={tx.finalHeadlinePart1} /><br className="hidden sm:block" />{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">{tx.finalHeadlineAccent}</span>
           </h2>
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-12">

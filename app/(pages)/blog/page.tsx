@@ -31,198 +31,16 @@ const navLinks = [
 const blogPageTitle = "Partage de connaissances & insights.";
 const blogPageSubtitle = "Articles, tutoriels et réflexions sur le développement full stack, l'architecture web et l'évolution vers le Data Engineering.";
 
-const categories = [
-  { id: "all", label: "Tous les articles", count: 12 },
-  { id: "full-stack", label: "Full Stack", count: 3 },
-  { id: "laravel", label: "Laravel", count: 4 },
-  { id: "react", label: "React", count: 3 },
-  { id: "data", label: "Data Engineering", count: 2 },
-  { id: "devops", label: "DevOps", count: 2 },
-  { id: "ui-ux", label: "UI/UX", count: 3 },
-];
+// Libellés jolis pour les catégories connues (sinon on affiche la valeur brute).
+const categoryLabels: Record<string, string> = {
+  "full-stack": "Full Stack",
+  laravel: "Laravel",
+  react: "React",
+  data: "Data Engineering",
+  devops: "DevOps",
+  "ui-ux": "UI/UX",
+};
 
-const allArticles = [
-  {
-    id: 1,
-    title: "Les bases des pipelines ETL avec Python et Pandas",
-    slug: "pipelines-etl-python-pandas",
-    excerpt: "Découvrez comment construire des pipelines ETL robustes et scalables avec Python. Guide complet du Extract au Load.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "data",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "15 Jan 2025",
-    readTime: "8 min",
-    featured: true,
-    image: "/18.jpg",
-    tags: ["Python", "Pandas", "Data Engineering", "ETL"],
-    views: 1240,
-  },
-  {
-    id: 2,
-    title: "API REST robuste avec Laravel 11 et Sanctum",
-    slug: "api-rest-laravel-11-sanctum",
-    excerpt: "Construisez une API REST production-ready avec Laravel 11. Authentification sécurisée, validation et gestion des erreurs.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "laravel",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "3 Jan 2025",
-    readTime: "12 min",
-    featured: true,
-    image: "/19.jpg",
-    tags: ["Laravel", "API", "PHP", "Sanctum"],
-    views: 2156,
-  },
-  {
-    id: 3,
-    title: "App Router Next.js 14 : migration et bonnes pratiques",
-    slug: "nextjs-14-app-router-migration",
-    excerpt: "Migrez votre projet Next.js vers l'App Router avec confiance. Bonnes pratiques et patterns modernes expliqués.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "react",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "20 Déc 2024",
-    readTime: "10 min",
-    featured: true,
-    image: "/13.jpg",
-    tags: ["Next.js", "React", "JavaScript", "App Router"],
-    views: 1890,
-  },
-  {
-    id: 4,
-    title: "Optimisation SEO technique pour les Core Web Vitals",
-    slug: "seo-technique-core-web-vitals",
-    excerpt: "Comment optimiser vos Core Web Vitals et améliorer votre SEO technique. Métriques, outils et stratégies.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "full-stack",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "15 Déc 2024",
-    readTime: "11 min",
-    featured: false,
-    image: "/14.jpg",
-    tags: ["SEO", "Performance", "Web Vitals", "Optimisation"],
-    views: 1450,
-  },
-  {
-    id: 5,
-    title: "Docker pour développeurs : du développement à la production",
-    slug: "docker-developpeurs-production",
-    excerpt: "Guide pratique Docker. Containers, images, compose et déploiement en production expliqués simplement.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "devops",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "8 Déc 2024",
-    readTime: "15 min",
-    featured: false,
-    image: "/15.jpg",
-    tags: ["Docker", "DevOps", "Containers", "Production"],
-    views: 2001,
-  },
-  {
-    id: 6,
-    title: "React Hooks avancés : useContext et useReducer",
-    slug: "react-hooks-usecontext-usereducer",
-    excerpt: "Maîtrisez les hooks avancés de React. Gestion d'état globale et patterns réutilisables avec useContext et useReducer.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "react",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "1 Déc 2024",
-    readTime: "9 min",
-    featured: false,
-    image: "/16.jpg",
-    tags: ["React", "Hooks", "State Management", "JavaScript"],
-    views: 1678,
-  },
-  {
-    id: 7,
-    title: "Design Patterns Laravel : Repository et Service Locator",
-    slug: "design-patterns-laravel",
-    excerpt: "Apprenez les design patterns essentiels en Laravel. Repository pattern, Service Locator et architecture propre.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "laravel",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "25 Nov 2024",
-    readTime: "13 min",
-    featured: false,
-    image: "/17.jpg",
-    tags: ["Laravel", "Design Patterns", "Architecture", "PHP"],
-    views: 1234,
-  },
-  {
-    id: 8,
-    title: "Machine Learning avec Scikit-learn : premiers pas",
-    slug: "machine-learning-scikit-learn",
-    excerpt: "Introduction au Machine Learning avec Python et Scikit-learn. Classification, régression et évaluation de modèles.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "data",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "18 Nov 2024",
-    readTime: "14 min",
-    featured: false,
-    image: "/10.png",
-    tags: ["Python", "Scikit-learn", "Machine Learning", "Data Science"],
-    views: 1567,
-  },
-  {
-    id: 9,
-    title: "Tailwind CSS : du utility-first à la architecture CSS propre",
-    slug: "tailwind-css-utility-first",
-    excerpt: "Maîtrisez Tailwind CSS. De la syntaxe utility-first à l'organisation d'une architecture CSS maintenable et scalable.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "ui-ux",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "10 Nov 2024",
-    readTime: "7 min",
-    featured: false,
-    image: "/11.png",
-    tags: ["Tailwind", "CSS", "UI Design", "Frontend"],
-    views: 2345,
-  },
-  {
-    id: 10,
-    title: "Database Optimization : indexation et requêtes SQL efficaces",
-    slug: "database-optimization-sql",
-    excerpt: "Optimisez vos bases de données. Indexation, EXPLAIN, query optimization et best practices pour la performance.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "devops",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "3 Nov 2024",
-    readTime: "12 min",
-    featured: false,
-    image: "/12.png",
-    tags: ["SQL", "Database", "Performance", "Optimization"],
-    views: 1890,
-  },
-  {
-    id: 11,
-    title: "Composants React réutilisables : patterns et bonnes pratiques",
-    slug: "react-composants-reutilisables",
-    excerpt: "Créez des composants React vraiment réutilisables. Props, composition et patterns pour une architecture scalable.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "react",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "27 Oct 2024",
-    readTime: "10 min",
-    featured: false,
-    image: "/16.jpg",
-    tags: ["React", "Components", "Architecture", "JavaScript"],
-    views: 1456,
-  },
-  {
-    id: 12,
-    title: "UX Design Principles : psychologie de l'interaction utilisateur",
-    slug: "ux-design-principles-psychologie",
-    excerpt: "Comprendre la psychologie de l'utilisateur. Principes de UX design appliqués pour créer des expériences mémorables.",
-    content: "Lorem ipsum dolor sit amet...",
-    category: "ui-ux",
-    author: { name: "Morel GUELLY", image: "/avatar.jpg" },
-    date: "20 Oct 2024",
-    readTime: "9 min",
-    featured: false,
-    image: "/18.jpg",
-    tags: ["UX Design", "Psychology", "User Experience", "Design"],
-    views: 1123,
-  },
-];
 
 // ── FOOTER ────────────────────────────────────────────────────────────────────
 const footerBrand = "GUELLY Morel";
@@ -348,37 +166,52 @@ export default function BlogPage() {
 
   // useMemo : on ne remappe les données brutes (site.blog) que si elles changent réellement,
   // pas à chaque render du composant.
+  // AUCUN article de démo : seuls les articles réellement publiés dans le
+  // dashboard admin sont affichés (sinon état vide propre).
   const articles = useMemo(() => {
-    // API injoignable (null après chargement) → repli sur les articles de démo.
-    // API OK mais 0 article ([]) ou en cours de chargement → liste vide (état vide).
     if (!(site.blog && site.blog.length)) {
-      return site.loaded && site.blog === null ? allArticles : [];
+      return [];
     }
-    return site.blog && site.blog.length
-      ? site.blog.map((a: any, i: number) => ({
-          id: a.id ?? a.slug ?? i,
-          title: a.title ?? "",
-          slug: a.slug ?? "",
-          excerpt: a.excerpt ?? "",
-          content: a.content ?? "",
-          category: a.category ?? "",
-          author: { name: a.author ?? "Morel GUELLY", image: "/avatar.jpg" },
-          date: a.published_at ?? a.date ?? "",
-          readTime: a.reading_time ? `${a.reading_time} min` : "",
-          featured: !!a.featured,
-          image: a.featured_image
-            ? mediaUrl(a.featured_image)
-            : (Array.isArray(a.images) && a.images.length
-                ? mediaUrl(a.images[0])
-                : (allArticles[i]?.image ?? "")),
-          images: (Array.isArray(a.images) ? a.images.map((p: string) => mediaUrl(p)) : []) as string[],
-          video: a.video ? mediaUrl(a.video) : "",
-          videoUrl: a.video_url ?? "",
-          tags: (Array.isArray(a.tags) ? a.tags : []) as string[],
-          views: a.views ?? 0,
-        }))
-      : allArticles;
-  }, [site.blog, site.loaded]);
+    return site.blog.map((a: any, i: number) => ({
+      id: a.id ?? a.slug ?? i,
+      title: a.title ?? "",
+      slug: a.slug ?? "",
+      excerpt: a.excerpt ?? "",
+      content: a.content ?? "",
+      category: a.category ?? "",
+      author: { name: a.author ?? "Morel GUELLY", image: "/avatar.jpg" },
+      date: a.published_at ?? a.date ?? "",
+      readTime: a.reading_time ? `${a.reading_time} min` : "",
+      featured: !!a.featured,
+      image: a.featured_image
+        ? mediaUrl(a.featured_image)
+        : (Array.isArray(a.images) && a.images.length
+            ? mediaUrl(a.images[0])
+            : ""),
+      images: (Array.isArray(a.images) ? a.images.map((p: string) => mediaUrl(p)) : []) as string[],
+      video: a.video ? mediaUrl(a.video) : "",
+      videoUrl: a.video_url ?? "",
+      tags: (Array.isArray(a.tags) ? a.tags : []) as string[],
+      views: a.views ?? 0,
+    }));
+  }, [site.blog]);
+
+  // Catégories calculées depuis les VRAIS articles (plus de compteurs factices).
+  const categories = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const a of articles) {
+      const c = String(a.category || "").trim();
+      if (c) counts.set(c, (counts.get(c) ?? 0) + 1);
+    }
+    return [
+      { id: "all", label: "Tous les articles", count: articles.length },
+      ...Array.from(counts.entries()).map(([c, n]) => ({
+        id: c,
+        label: categoryLabels[c] ?? c,
+        count: n,
+      })),
+    ];
+  }, [articles]);
 
   // useMemo : le filtrage ne doit se refaire que si les articles, la catégorie
   // ou la recherche changent — pas à chaque re-render (ex: ouverture du modal).
@@ -516,7 +349,8 @@ export default function BlogPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none" />
       </section>
 
-      {/* ━━━━━━━━━━━━━━━━━━ 2. CATÉGORIES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      {/* ━━━━━━━━━━━━━━━━━━ 2. CATÉGORIES (masquées s'il n'y a aucun article) ━ */}
+      {articles.length > 0 && (
       <section className="relative overflow-hidden py-12 sm:py-16 bg-white border-b border-slate-100">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-16 left-1/5 w-[26rem] h-[26rem] rounded-full bg-blue-300/25 blur-3xl" />
@@ -552,6 +386,7 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ━━━━━━━━━━━━━━━━━━ 3. ARTICLES EN VEDETTE ━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       {featuredArticles.length > 0 && (

@@ -514,9 +514,9 @@ export default function AboutPage() {
             <div className="max-w-2xl">
               
 
-              <h1 className="font-['Sora',sans-serif] font-extrabold text-white leading-tight mb-5 text-[clamp(2rem,6vw,3.5rem)]">
-                {heroTitle1V}<br />
-                <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-white bg-clip-text text-transparent">{heroTitle2V}</span><br />
+              <h1 className="font-['Sora',sans-serif] font-extrabold text-white leading-tight mb-5 text-[clamp(1.75rem,6vw,3.5rem)]">
+                {heroTitle1V}<br className="hidden sm:block" />{" "}
+                <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-white bg-clip-text text-transparent">{heroTitle2V}</span><br className="hidden sm:block" />{" "}
                 <span className="text-white/40">{heroTitle3V}</span>
               </h1>
 
@@ -555,6 +555,7 @@ export default function AboutPage() {
         src="/6.png"
         alt="GUELLY Morel H. R."
         className="absolute inset-0 w-full h-full object-cover object-[78%_top]"
+        style={{ height: "100%" }}
       />
       {/* Overlay dégradé bas */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
@@ -633,7 +634,7 @@ export default function AboutPage() {
               <Eyebrow text={storyEyebrowV} />
               <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6 leading-snug text-[clamp(1.5rem,4vw,2.25rem)]">
                 {storyHeadlineV.split("\n").map((line, i) => (
-                  <span key={i}>{line}{i === 0 && <br />}</span>
+                  <span key={i}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
                 ))}
               </h2>
               <div className="space-y-4">
@@ -696,7 +697,7 @@ export default function AboutPage() {
             <Eyebrow text={philosophyEyebrow} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug mb-4 text-[clamp(1.5rem,4vw,2rem)]">
               {philosophyHeadlineV.split("\n").map((line, i) => (
-                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
               ))}
             </h2>
             <p className="text-slate-500 text-sm leading-relaxed">{philosophySubtitleV}</p>
@@ -739,7 +740,7 @@ export default function AboutPage() {
               <Eyebrow text={dataEyebrow} light />
               <h2 className="font-['Sora',sans-serif] font-extrabold text-white leading-snug mb-6 text-[clamp(1.4rem,3.5vw,1.875rem)]">
                 {dataHeadlineV.split("\n").map((line, i) => (
-                  <span key={i} className={i === 1 ? "bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                  <span key={i} className={i === 1 ? "bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
                 ))}
               </h2>
               <div className="space-y-4">
@@ -788,7 +789,7 @@ export default function AboutPage() {
             <Eyebrow text={personalityEyebrow} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.5rem,4vw,2rem)]">
               {personalityHeadlineV.split("\n").map((line, i) => (
-                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
               ))}
             </h2>
           </div>
@@ -824,7 +825,7 @@ export default function AboutPage() {
             <Eyebrow text={expEyebrow} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.5rem,4vw,2rem)]">
               {expHeadline.split("\n").map((line, i) => (
-                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
               ))}
             </h2>
           </div>
@@ -910,7 +911,7 @@ export default function AboutPage() {
               <Eyebrow text={formationsEyebrow} />
               <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 mb-4 leading-snug text-[clamp(1.5rem,4vw,2rem)]">
                 {formationsHeadline.split("\n").map((line, i) => (
-                  <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                  <span key={i} className={i === 1 ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
                 ))}
               </h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-8">{formationsSubtitle}</p>
@@ -973,7 +974,7 @@ export default function AboutPage() {
             <Eyebrow text={watchEyebrow} light />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-white leading-snug text-[clamp(1.5rem,4vw,2rem)]">
               {watchHeadline.split("\n").map((line, i) => (
-                <span key={i} className={i === 1 ? "bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <br />}</span>
+                <span key={i} className={i === 1 ? "bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent" : ""}>{line}{i === 0 && <><br className="hidden sm:block" />{" "}</>}</span>
               ))}
             </h2>
           </div>
@@ -1018,7 +1019,7 @@ export default function AboutPage() {
 
         <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-8 text-center">
           <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-tight mb-4 text-[clamp(1.7rem,5vw,2.75rem)]">
-            Vous avez un projet ambitieux ?<br />
+            Vous avez un projet ambitieux ?<br className="hidden sm:block" />{" "}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">Parlons-en.</span>
           </h2>
 

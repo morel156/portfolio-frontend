@@ -196,6 +196,7 @@ export default function ContactPage() {
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "", website: "" });
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formSlow, setFormSlow] = useState(false);
 
   const site = useSiteData();
   const s = site.settings;
@@ -237,6 +238,9 @@ export default function ContactPage() {
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("loading");
+    setFormSlow(false);
+    // Hébergement gratuit : si le backend doit se réveiller, on prévient le visiteur.
+    const slowTimer = setTimeout(() => setFormSlow(true), 4000);
     const API = apiBaseUrl();
     try {
       const res = await fetch(`${API}/contact`, {
@@ -247,10 +251,13 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setFormStatus("success");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "", website: "" });
-      setTimeout(() => setFormStatus("idle"), 4000);
+      setTimeout(() => setFormStatus("idle"), 6000);
     } catch {
       setFormStatus("error");
-      setTimeout(() => setFormStatus("idle"), 4000);
+      setTimeout(() => setFormStatus("idle"), 6000);
+    } finally {
+      clearTimeout(slowTimer);
+      setFormSlow(false);
     }
   };
 
@@ -392,7 +399,7 @@ export default function ContactPage() {
             <h2
               className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]"
             >
-              {CT.join_title ?? "Plusieurs façons de"}<br />
+              {CT.join_title ?? "Plusieurs façons de"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{CT.join_accent ?? "démarrer la conversation."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -454,7 +461,7 @@ export default function ContactPage() {
             <h2
               className="font-['Sora',sans-serif] font-extrabold text-white leading-snug text-[clamp(1.6rem,4vw,2.5rem)]"
             >
-              {CT.form_title ?? "Parlez-moi de votre"}<br />
+              {CT.form_title ?? "Parlez-moi de votre"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-white bg-clip-text text-transparent">{CT.form_accent ?? "projet en détail."}</span>
             </h2>
             <p className="text-white/55 text-sm mt-4 max-w-lg mx-auto leading-relaxed">
@@ -578,6 +585,17 @@ export default function ContactPage() {
                 )}
               </button>
 
+              {formStatus === "loading" && formSlow && (
+                <p className="text-blue-200/90 text-xs mt-4 text-center" role="status">
+                  Le serveur se réveille, l'envoi peut prendre quelques secondes de plus. Merci de patienter…
+                </p>
+              )}
+              {formStatus === "error" && (
+                <p className="text-red-300 text-xs mt-4 text-center" role="status">
+                  L'envoi a échoué. Réessayez, ou écrivez-moi directement par email.
+                </p>
+              )}
+
               <p className="text-white/35 text-xs mt-4 text-center">
                 Je traite chaque demande avec sérieux. Je vous répondrai dans les 24h.
               </p>
@@ -600,7 +618,7 @@ export default function ContactPage() {
             <h2
               className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]"
             >
-              {CT.why_title ?? "Je ne suis pas un simple"}<br />
+              {CT.why_title ?? "Je ne suis pas un simple"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{CT.why_accent ?? "prestataire technique."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -638,7 +656,7 @@ export default function ContactPage() {
             <h2
               className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]"
             >
-              {CT.faq_title ?? "Vos questions sur"}<br />
+              {CT.faq_title ?? "Vos questions sur"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{CT.faq_accent ?? "comment j'opère."}</span>
             </h2>
           </AnimateIn>

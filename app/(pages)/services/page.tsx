@@ -429,9 +429,9 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="font-['Sora',sans-serif] font-extrabold text-white text-center leading-tight mb-6 text-[clamp(2rem,6vw,4rem)]"
+            className="font-['Sora',sans-serif] font-extrabold text-white text-center leading-tight mb-6 text-[clamp(1.75rem,6vw,4rem)]"
           >
-            {SV.hero_title ?? "Je construis des produits web"}<br />
+            {SV.hero_title ?? "Je construis des produits web"}<br className="hidden sm:block" />{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300">
               {SV.hero_accent ?? "qui créent un impact réel."}
             </span>
@@ -500,7 +500,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.bring_eyebrow ?? "Ce que j'apporte"} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.bring_title ?? "Bien plus qu'un développeur,"}<br />
+              {SV.bring_title ?? "Bien plus qu'un développeur,"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{SV.bring_accent ?? "une vision complète du produit."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -538,7 +538,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.services_eyebrow ?? "Services"} light />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-white leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.services_title ?? "Des services pensés pour"}<br />
+              {SV.services_title ?? "Des services pensés pour"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent">{SV.services_accent ?? "des projets qui ont de l'ambition."}</span>
             </h2>
             <p className="text-white/55 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -580,7 +580,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.process_eyebrow ?? "Processus de travail"} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.process_title ?? "Un bon produit ne se construit"}<br />
+              {SV.process_title ?? "Un bon produit ne se construit"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{SV.process_accent ?? "jamais au hasard."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -629,7 +629,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.why_eyebrow ?? "Pourquoi moi ?"} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.why_title ?? "Ce qui me différencie"}<br />
+              {SV.why_title ?? "Ce qui me différencie"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{SV.why_accent ?? "n'est pas que technique."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
@@ -680,7 +680,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.stack_eyebrow ?? "Stack & Outils"} light />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-white leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.stack_title ?? "Les technologies que je maîtrise"}<br />
+              {SV.stack_title ?? "Les technologies que je maîtrise"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-violet-300 bg-clip-text text-transparent">{SV.stack_accent ?? "au service de vos projets."}</span>
             </h2>
           </AnimateIn>
@@ -714,7 +714,7 @@ export default function ServicesPage() {
           <AnimateIn className="text-center mb-14">
             <Eyebrow text={SV.collab_eyebrow ?? "Collaboration"} />
             <h2 className="font-['Sora',sans-serif] font-extrabold text-slate-800 leading-snug text-[clamp(1.6rem,4vw,2.5rem)]">
-              {SV.collab_title ?? "Je travaille avec des équipes"}<br />
+              {SV.collab_title ?? "Je travaille avec des équipes"}<br className="hidden sm:block" />{" "}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">{SV.collab_accent ?? "qui ont des projets qui comptent."}</span>
             </h2>
             <p className="text-slate-500 text-sm mt-4 max-w-xl mx-auto leading-relaxed">

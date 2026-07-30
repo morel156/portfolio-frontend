@@ -48,11 +48,15 @@ body {
   outline-offset: 2px;
 }
 
-/* Images et médias : rendu net, jamais déformé. */
-img,
-video {
-  max-width: 100%;
-  height: auto;
+/* Images et médias : rendu net, jamais déformé.
+   Dans @layer base pour que les utilitaires Tailwind (h-full, h-48…) gardent
+   la priorité — hors layer, ce reset écrasait les hauteurs des images. */
+@layer base {
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 /* ── Finitions premium ──────────────────────────────────────────────────────
@@ -60,10 +64,16 @@ video {
    posé (les classes utilitaires ont la priorité sur ces sélecteurs d'éléments).
    ─────────────────────────────────────────────────────────────────────────── */
 
-/* Grands titres : interlettrage resserré = allure éditoriale haut de gamme. */
+/* Grands titres : interlettrage resserré = allure éditoriale haut de gamme.
+   text-wrap: balance = lignes équilibrées (pas de mot orphelin sur mobile). */
 h1,
 h2 {
   letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h3 {
+  text-wrap: balance;
 }
 
 /* Micro-interactions : transitions douces (courbe « expo out ») sur tout
