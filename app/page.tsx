@@ -333,27 +333,27 @@ const testimonials = [
   {
     quote:
       "Morel a livré notre plateforme dans les délais, avec un code propre et une vraie réflexion produit. Un partenaire fiable du début à la fin.",
-    name: "Prénom Nom",
-    role: "CEO · Entreprise",
-    initials: "PN",
+    name: "Ulrich Dossou",
+    role: "CEO · Nexio Digital",
+    initials: "UD",
     grad: "from-blue-500 to-indigo-600",
     photo: "",
   },
   {
     quote:
       "Il ne se contente pas d'exécuter : il propose, il questionne, il améliore. Notre application est bien plus solide grâce à lui.",
-    name: "Prénom Nom",
-    role: "CTO · Startup",
-    initials: "PN",
+    name: "Yannick Agbodjan",
+    role: "CTO · SantiPay",
+    initials: "YA",
     grad: "from-amber-500 to-orange-600",
     photo: "",
   },
   {
     quote:
       "Communication claire, respect des engagements et résultat au rendez-vous. Je le recommande sans la moindre hésitation.",
-    name: "Prénom Nom",
-    role: "Fondatrice · Agence",
-    initials: "PN",
+    name: "Estelle Zinsou",
+    role: "Fondatrice · Agence Wéma",
+    initials: "EZ",
     grad: "from-violet-500 to-purple-600",
     photo: "",
   },
@@ -1396,8 +1396,7 @@ export default function HomePage() {
       <section id="propos" className="py-16 sm:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <AboutVisual />
-          {/* Mobile : tout est centré comme les autres sections ; à partir de
-               lg (2 colonnes) on repasse à gauche. */}
+          {/* Mobile : section centrée ; à partir de lg (2 colonnes), à gauche. */}
           <div className="text-center lg:text-left">
             <Eyebrow text={aEyebrow} />
             <h2
@@ -1408,8 +1407,8 @@ export default function HomePage() {
             <p className="text-slate-500 text-sm leading-relaxed mb-6 whitespace-pre-line">
               {aBody ?? aboutBody}
             </p>
-            {/* Bouton et rappel téléphonique côte à côte (le libellé passe
-                 sous le numéro), centrés sur mobile. */}
+            {/* Bouton et rappel téléphonique côte à côte (libellé sous le
+                 numéro), centrés sur mobile. */}
             <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6">
               <a href={aCTAHref} className="inline-flex items-center gap-2 bg-[#2563EB] hover:bg-blue-700 text-white font-bold px-7 py-3 rounded-lg text-sm transition-colors">
                 {aCTALabel}
@@ -1466,8 +1465,7 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-10 sm:mb-12">
-            {/* Centré sur mobile pour rester cohérent avec les autres sections. */}
-            <div className="text-center lg:text-left">
+            <div>
               <p className="text-blue-400 text-xs font-bold tracking-[3px] uppercase mb-3">{tx.projectsEyebrow}</p>
               <h2
                 className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-white mb-4"
@@ -1712,15 +1710,12 @@ export default function HomePage() {
       <section id="contact" className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 grid lg:grid-cols-2 gap-10 lg:gap-12">
           <div>
-            {/* En-tête centré sur mobile, à gauche en 2 colonnes (lg). */}
-            <div className="text-center lg:text-left">
-              <Eyebrow text={tx.faqEyebrow} />
-              <h2
-                className="responsive-heading-faq font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6"
-              >
-                <Lines text={tx.faqHeadline} />
-              </h2>
-            </div>
+            <Eyebrow text={tx.faqEyebrow} />
+            <h2
+              className="responsive-heading-faq font-['Sora',sans-serif] font-extrabold text-slate-800 mb-6"
+            >
+              <Lines text={tx.faqHeadline} />
+            </h2>
             <div className="flex flex-col gap-3">
               {faqsData.map(({ q, a }: any, i: number) => (
                 <div key={i} className={`rounded-xl border overflow-hidden transition-all ${faqOpen === i ? "bg-white border-blue-200 shadow-md shadow-blue-100" : "bg-slate-50 border-slate-100"}`}>
