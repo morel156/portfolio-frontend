@@ -169,13 +169,13 @@ const projects = [
     icon: <SiLaravel size={20} className="text-[#2563EB]" />,
     cat: "SaaS / IA",
     title: "StabilIT",
-    domain: "stabilit.app",
+    domain: "stabilit.onrender.com",
     problem: "Les équipes lancent des projets numériques sans évaluer leur faisabilité réelle — complexité sous-estimée, délais explosés, budgets dépassés.",
     impact: "Diagnostic automatique en quelques minutes : complexité, charge, pression temporelle et maturité organisationnelle analysées avec des recommandations ciblées.",
     tags: ["Laravel", "IA", "SaaS"],
     image: "/Accueil_partie1.png",
-    live: "",
-    repo: "",
+    live: "https://stabilit.onrender.com/",
+    repo: "https://github.com/morel156/stabilit",
   },
 ];
 
@@ -473,7 +473,7 @@ const ExpertiseCard = ({ card }: { card: (typeof expertiseCards)[number] }) => {
       }`}
     >
       {card.badgeLabel && (
-        <span className="absolute -top-3 right-6 bg-gradient-to-r from-[#2563EB] to-indigo-500 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-blue-900/40 tracking-wide">
+        <span className="absolute -top-3 right-6 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-orange-900/40 tracking-wide">
           {card.badgeLabel}
         </span>
       )}
@@ -1464,22 +1464,21 @@ export default function HomePage() {
           <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-600/10 rounded-full blur-[110px]" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-10 sm:mb-12">
-            <div>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 sm:mb-12">
+            <div className="text-left lg:max-w-xl">
               <p className="text-blue-400 text-xs font-bold tracking-[3px] uppercase mb-3">{tx.projectsEyebrow}</p>
               <h2
                 className="responsive-heading-lg font-['Sora',sans-serif] font-extrabold text-white mb-4"
               >
                 <Lines text={tx.projectsHeadline} />
               </h2>
-              <p className="text-white/60 text-sm leading-relaxed mb-7">
+              <p className="text-white/60 text-sm leading-relaxed">
                 {tx.projectsSubtitle}
               </p>
-              <a href={projectsCTA.href} className="inline-flex items-center gap-2 border-2 border-white/25 text-white font-bold px-7 py-3 rounded-lg text-sm hover:bg-white/10 transition-colors">
-                {projectsCTA.label} <FiArrowRight size={15} />
-              </a>
             </div>
-            <div />
+            <a href={projectsCTA.href} className="inline-flex items-center gap-2 border-2 border-white/25 text-white font-bold px-7 py-3 rounded-lg text-sm hover:bg-white/10 transition-colors flex-shrink-0 self-start lg:self-end">
+              {projectsCTA.label} <FiArrowRight size={15} />
+            </a>
           </div>
 
           <Reveal>

@@ -59,8 +59,8 @@ const allProjects = [
     image: "/Accueil_partie1.png",
     technologies: ["laravel", "react", "mysql", "python"],
     stack: ["Laravel 11", "React", "MySQL", "Groq API", "Tailwind CSS"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://stabilit.onrender.com/",
+    githubUrl: "https://github.com/morel156/stabilit",
     year: 2024,
     featured: true,
     stats: { risks: "87%", accuracy: "92%", users: "15+" }
