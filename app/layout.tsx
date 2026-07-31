@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import VisitorTracker from "@/components/VisitorTracker";
 import { getSettings } from "@/lib/server-data";
 import { SITE_URL } from "@/lib/site";
+
+export const viewport: Viewport = {
+  themeColor: "#0f172a",
+};
 
 const inter = Inter({
   subsets: ["latin"],
