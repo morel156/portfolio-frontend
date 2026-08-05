@@ -134,22 +134,22 @@ const expEyebrow = "Parcours professionnel";
 const expHeadline = "L'histoire derrière\nchaque ligne de code.";
 const experiences = [
   {
-    period: "2026 — Présent",
-    role: "Développeur Full Stack",
-    company: "Stagiaires / Ekla Solutions",
+    period: "Mai 2026 — Présent",
+    role: "Développeur Full Stack — Stage professionnel",
+    company: "EKLA SOLUTIONS",
     location: "Cotonou, Bénin",
     active: true,
-    desc: "Conception et développement d'applications web complètes pour des clients locaux et internationaux. Architecture Laravel + React/Next.js, APIs REST robustes, déploiement Vercel et Railway. Accompagnement des clients de la définition du besoin jusqu'à la mise en production.",
-    tags: ["Laravel", "React", "Next.js", "MySQL", "REST API","Wordpress"],
+    desc: "Stage professionnel de six mois, proposé à l'issue du stage académique. Conception et développement d'applications web complètes pour des clients locaux et internationaux. Architecture Laravel + React/Next.js, APIs REST robustes, déploiement Vercel et Railway. Accompagnement des clients de la définition du besoin jusqu'à la mise en production.",
+    tags: ["Laravel", "React", "Next.js", "MySQL", "REST API", "Wordpress"],
   },
   {
-    period: "2023 — 2026",
-    role: "Développeur Web, Projets personnels",
-    company: "Autoformation en ligne",
+    period: "Févr. — Mai 2026",
+    role: "Développeur Full Stack — Stage académique",
+    company: "EKLA SOLUTIONS",
     location: "Cotonou, Bénin",
     active: false,
-    desc: "Développement de projets personnels ambitieux pour solidifier les compétences : e-commerce multi-vendor avec panel admin Filament, CRM immobilier complet, dashboard analytics. Plusieurs centaines d'heures de pratique réelle sur des cas concrets.",
-    tags: ["PHP", "Laravel", "React", "API REST", "MySQL"],
+    desc: "Stage académique de trois mois validant la licence. Intégration à l'équipe technique et montée en compétence sur la stack Laravel / React, participation aux phases de conception, de développement et de tests. Conclu par une proposition de stage professionnel de six mois.",
+    tags: ["Laravel", "React", "MySQL", "API REST"],
   },
   {
     period: "2023 — 2026",
@@ -184,6 +184,15 @@ const formations = [
     desc: "Maîtrise approfondie du framework Laravel : API REST, authentification Sanctum, Filament admin, architecture MVC avancée, tests.",
     badge: "Certifié",
     badgeColor: "bg-blue-500/15 text-blue-400 border-blue-500/25",
+  },
+  {
+    icon: <FiBookOpen size={20} />,
+    degree: "Baccalauréat série D",
+    school: "CEG 2 Bohicon — Bohicon",
+    year: "2023",
+    desc: "Baccalauréat scientifique, mention Assez Bien. Fondations en mathématiques et sciences physiques.",
+    badge: "Assez Bien",
+    badgeColor: "bg-green-500/15 text-green-400 border-green-500/25",
   },
   {
     icon: <FiTrendingUp size={20} />,
@@ -358,7 +367,7 @@ export default function AboutPage() {
       ? (about.stats as { n: number; s: string; l: string }[])
       : [
           { n: 1, s: "+", l: "An d'exp. active" },
-          { n: 15, s: "+", l: "Projets construits" },
+          { n: 1, s: "", l: "Projet construit" },
           { n: 5, s: "+", l: "Clients accompagnés" },
           { n: 1000, s: "+", l: "heures de pratique" },
         ];

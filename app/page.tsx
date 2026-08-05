@@ -53,11 +53,11 @@ const heroCTAPrimary = { label: "Explorer mes projets", href: "#projets" };
 const heroCTASecondary = { label: "Discutons de votre projet", href: "contact" };
 const heroStats = [
   { n: "1+", l: "Ans d'exp." },
-  { n: "10+", l: "Projets" },
+  { n: "1", l: "Projet" },
   { n: "5+", l: "Clients" },
 ];
 const heroBadgeTop = { number: "1+", label: "Ans d'exp." };
-const heroBadgeBottom = { number: "10+", label: "Projets" };
+const heroBadgeBottom = { number: "1", label: "Projet" };
 
 // ── TRUST BADGES ─────────────────────────────────────────────────────────────
 const trustItems = [
