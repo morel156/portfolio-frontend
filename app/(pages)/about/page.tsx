@@ -186,15 +186,6 @@ const formations = [
     badgeColor: "bg-blue-500/15 text-blue-400 border-blue-500/25",
   },
   {
-    icon: <FiBookOpen size={20} />,
-    degree: "Baccalauréat série D",
-    school: "CEG 2 Bohicon — Bohicon",
-    year: "2023",
-    desc: "Baccalauréat scientifique, mention Assez Bien. Fondations en mathématiques et sciences physiques.",
-    badge: "Assez Bien",
-    badgeColor: "bg-green-500/15 text-green-400 border-green-500/25",
-  },
-  {
     icon: <FiTrendingUp size={20} />,
     degree: "Data Engineering — Python & SQL",
     school: "à venir",
@@ -202,6 +193,16 @@ const formations = [
     desc: "Pipelines ETL, manipulation de données avec Pandas, visualisation, bases de Machine Learning appliqué. Formation continue en parallèle des projets clients.",
     badge: "à venir",
     badgeColor: "bg-sky-500/15 text-sky-400 border-sky-500/25",
+  },
+  // Le diplôme fondateur ferme la liste, comme sur le CV.
+  {
+    icon: <FiBookOpen size={20} />,
+    degree: "Baccalauréat série D",
+    school: "CEG 2 Bohicon — Bohicon",
+    year: "2023",
+    desc: "Baccalauréat scientifique, mention Assez Bien. Fondations en mathématiques et sciences physiques.",
+    badge: "Assez Bien",
+    badgeColor: "bg-green-500/15 text-green-400 border-green-500/25",
   },
 ];
 
