@@ -23,11 +23,14 @@ const DEFAULT_TITLE = "GUELLY Morel — Développeur Full Stack | Web & Data";
 const DEFAULT_DESC =
   "Développeur Full Stack à Cotonou (Bénin). Je conçois des applications web modernes avec Laravel, React et Next.js — pensées comme des systèmes qui durent, en évolution vers le Data Engineering.";
 
-// Code de vérification Google Search Console (méthode « balise HTML »).
-// Se règle dans Vercel → Settings → Environment Variables, sans toucher au code :
-// GOOGLE_SITE_VERIFICATION = <le code fourni par Search Console>
-// Vide ou absent = aucune balise émise.
-const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+// Code de vérification Google Search Console (méthode « balise HTML ») pour la
+// propriété https://portfolio-morelguelly.vercel.app. Ce code est public par
+// nature — il est visible dans le HTML —, il n'a donc pas à rester secret.
+// Surclassable par la variable d'environnement GOOGLE_SITE_VERIFICATION
+// (Vercel → Settings → Environment Variables) si la propriété change.
+const GOOGLE_SITE_VERIFICATION =
+  process.env.GOOGLE_SITE_VERIFICATION?.trim() ||
+  "cznXN0HR9av-bW3r0aBY6y6u56W2SUfZx90afprbWdQ";
 
 // Metadata is generated from the admin-editable settings (SEO group),
 // falling back to the static defaults if the API is unreachable.
