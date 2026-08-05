@@ -429,7 +429,7 @@ const footerNewsletterDesc =
 const footerNewsletterPlaceholder = "Votre email...";
 const footerSocialIcons = [
   { icon: <FiGithub size={15} />, href: "https://github.com/morel156", label: "GitHub" },
-  { icon: <FiLinkedin size={15} />, href: "https://www.linkedin.com/in/morel-guelly-a05a1b420?utm_source=share_via&utm_content=profile&utm_medium=member_android", label: "LinkedIn" },
+  { icon: <FiLinkedin size={15} />, href: "https://www.linkedin.com/in/morel-guelly-a05a1b420", label: "LinkedIn" },
   { icon: <FiTwitter size={15} />, href: "https://twitter.com/guellymorel", label: "Twitter" },
   { icon: <FiMail size={15} />, href: "mailto:guellymorelhectoreramanou@gmail.com", label: "Email" },
 ];

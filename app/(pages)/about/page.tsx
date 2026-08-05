@@ -303,7 +303,7 @@ export default function AboutPage() {
   });
   const footerSocialIcons = [
     { icon: <FiGithub key="gh" size={14} />, href: "https://github.com/morel156", label: "GitHub" },
-    { icon: <FiLinkedin key="li" size={14} />, href: "https://www.linkedin.com/in/morel-guelly-a05a1b420?utm_source=share_via&utm_content=profile&utm_medium=member_android", label: "LinkedIn" },
+    { icon: <FiLinkedin key="li" size={14} />, href: "https://www.linkedin.com/in/morel-guelly-a05a1b420", label: "LinkedIn" },
     { icon: <FiTwitter key="tw" size={14} />, href: "https://twitter.com/guellymorel", label: "Twitter" },
     { icon: <FiMail key="ml" size={14} />, href: "mailto:guellymorelhectoreramanou@gmail.com", label: "Email" },
   ];
