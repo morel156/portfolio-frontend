@@ -57,7 +57,7 @@ const heroStats = [
   { n: "5+", l: "Clients" },
 ];
 const heroBadgeTop = { number: "1+", label: "Ans d'exp." };
-const heroBadgeBottom = { number: "1", label: "Projet" };
+const heroBadgeBottom = { number: "2", label: "Projet" };
 
 // ── TRUST BADGES ─────────────────────────────────────────────────────────────
 const trustItems = [
