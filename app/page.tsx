@@ -53,7 +53,7 @@ const heroCTAPrimary = { label: "Explorer mes projets", href: "#projets" };
 const heroCTASecondary = { label: "Discutons de votre projet", href: "contact" };
 const heroStats = [
   { n: "1+", l: "Ans d'exp." },
-  { n: "1", l: "Projet" },
+  { n: "2", l: "Projet" },
   { n: "5+", l: "Clients" },
 ];
 const heroBadgeTop = { number: "1+", label: "Ans d'exp." };
