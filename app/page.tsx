@@ -13,13 +13,14 @@ import {
   FiAward, FiShield, FiClock, FiLayout, FiBriefcase, FiBarChart2,
   FiUsers, FiPhone, FiMail, FiMapPin,
   FiChevronDown, FiSend, FiArrowRight, FiGithub, FiLinkedin, FiTwitter,
-  FiCalendar, FiDatabase, FiGlobe, FiStar, FiCheckCircle,
+  FiCalendar, FiDatabase, FiStar, FiCheckCircle,
   FiZap, FiCode, FiBox, FiCpu, FiLayers, FiTarget, FiExternalLink,
   FiChevronLeft, FiChevronRight, FiUser, FiX
 } from "react-icons/fi";
 import {
   SiLaravel, SiNextdotjs, SiPython, SiReact, SiTailwindcss,
-  SiMysql, SiNodedotjs, SiDocker, SiTypescript, SiPandas
+  SiMysql, SiNodedotjs, SiDocker, SiTypescript, SiPandas,
+  SiHtml5, SiJavascript
 } from "react-icons/si";
 import { RiRobot2Line } from "react-icons/ri";
 
@@ -162,8 +163,8 @@ const projectsHeadline = "Chaque projet,\nune startup réelle.";
 const projectsSubtitle =
   "Chaque projet est conçu comme un vrai produit avec une logique, une expérience, une architecture et une vision claire.";
 const projectsCTA = { label: "Voir tous les projets", href: "/projets" };
-// Par défaut (API endormie ou injoignable) : UN seul vrai projet — StabilIT.
-// Les autres projets remontent depuis le dashboard admin une fois l'API réveillée.
+// Par défaut (API endormie ou injoignable) : les projets réels codés en dur.
+// Ils sont remplacés par ceux du dashboard admin dès que l'API est réveillée.
 const projects = [
   {
     icon: <SiLaravel size={20} className="text-[#2563EB]" />,
@@ -176,6 +177,30 @@ const projects = [
     image: "/Accueil_partie1.png",
     live: "https://stabilit.onrender.com/",
     repo: "https://github.com/morel156/stabilit",
+  },
+  {
+    icon: <SiHtml5 size={20} className="text-[#2563EB]" />,
+    cat: "Santé",
+    title: "Cabinet Dentaire Theewite",
+    domain: "cabinet-dentaire-theewite.vercel.app",
+    problem: "Les cabinets médicaux doivent rassurer vite, présenter clairement soins et tarifs, et rendre la prise de contact évidente — l'enjeu était de transformer une simple présence en ligne en véritable point d'entrée vers le cabinet.",
+    impact: "Landing page mobile-first orientée conversion : parcours pensé autour du rendez-vous, accès direct WhatsApp et téléphone, tarifs lisibles et base SEO complète (Open Graph, sitemap, JSON-LD).",
+    tags: ["HTML5", "CSS3", "JavaScript"],
+    image: "/theewite.png",
+    live: "https://cabinet-dentaire-theewite.vercel.app/",
+    repo: "https://github.com/morel156/cabinet-dentaire-theewite",
+  },
+  {
+    icon: <SiJavascript size={20} className="text-[#2563EB]" />,
+    cat: "Institut de beauté",
+    title: "Clara Beauty",
+    domain: "clarabeautysite.vercel.app",
+    problem: "Un institut de beauté doit présenter son univers, ses prestations et ses tarifs tout en donnant envie de réserver, et valoriser ses produits dans un parcours simple entre découverte, confiance, réservation et achat.",
+    impact: "Vitrine premium réunissant institut et boutique : soins visage et corps, massages, ongles, épilation, espace hommes, rituels signature et catalogue produits, avec réservation par créneau envoyée via WhatsApp ou e-mail.",
+    tags: ["HTML5", "CSS3", "JavaScript"],
+    image: "/clara-beauty.png",
+    live: "https://clarabeautysite.vercel.app/",
+    repo: "https://github.com/morel156/Clara",
   },
 ];
 
@@ -603,29 +628,21 @@ function ProjectsCarousel({ items }: { items: typeof projects }) {
 
           <div className="hidden lg:flex items-center justify-center relative p-6">
             <div className="group w-full rounded-xl overflow-hidden shadow-[0_25px_60px_-20px_rgba(0,0,0,0.7)] border border-white/10 bg-[#0b1220] transition-transform duration-300 hover:-translate-y-1">
-              <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.06] border-b border-white/10">
-                <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-                <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-                <div className="ml-3 flex-1 h-6 rounded-md bg-white/5 border border-white/10 flex items-center gap-1.5 px-2.5">
-                  <FiGlobe size={11} className="text-white/30 flex-shrink-0" />
-                  <span className="text-white/35 text-[11px] truncate">{project.domain}</span>
-                </div>
-              </div>
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative overflow-hidden">
                 {project.image ? (
                   <Image
                     src={project.image}
                     alt={project.title}
-                    fill
+                    width={1920}
+                    height={900}
                     sizes="50vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"
                     quality={100}
                     priority
                     unoptimized
                   />
                 ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/5">
+                  <div className="aspect-video flex flex-col items-center justify-center gap-3 bg-white/5">
                     <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center border border-white/15">{project.icon}</div>
                     <p className="text-white/30 text-sm font-semibold">{project.title}</p>
                   </div>

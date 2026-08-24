@@ -9,7 +9,7 @@ import { mediaUrl } from "@/lib/media";
 import {
   FiGithub, FiExternalLink, FiArrowRight, FiPhone, FiMail, FiMapPin,
   FiFilter, FiX, FiStar, FiTrendingUp, FiZap, FiCode, FiDatabase,
-  FiServer, FiLayout, FiCpu, FiLinkedin, FiTwitter, FiSend, FiGlobe
+  FiServer, FiLayout, FiCpu, FiLinkedin, FiTwitter, FiSend
 } from "react-icons/fi";
 import {
   SiLaravel, SiNextdotjs, SiReact, SiTailwindcss,
@@ -44,8 +44,8 @@ const technologies = [
   { id: "data", label: "Data Engineering", icon: <FiDatabase size={16} /> },
 ];
 
-// Par défaut (API endormie ou injoignable) : UN seul vrai projet — StabilIT.
-// Les autres projets remontent depuis le dashboard admin une fois l'API réveillée.
+// Par défaut (API endormie ou injoignable) : les projets réels codés en dur.
+// Ils sont remplacés par ceux du dashboard admin dès que l'API est réveillée.
 const allProjects = [
   {
     id: 1,
@@ -64,6 +64,54 @@ const allProjects = [
     year: 2024,
     featured: true,
     stats: { risks: "87%", accuracy: "92%", users: "15+" }
+  },
+  {
+    id: 7,
+    title: "Cabinet Dentaire Theewite",
+    slug: "site-vitrine-de-treewhite-cabinet-dentaire",
+    category: "Santé",
+    problem: "Les cabinets médicaux ont souvent besoin de rassurer rapidement leurs patients, de présenter clairement leurs services et tarifs, tout en facilitant la prise de contact. L'enjeu était donc de transformer une simple présence en ligne en véritable point d'entrée vers le cabinet.",
+    solution: "Conception d'une landing page moderne, responsive et mobile-first présentant les soins, tarifs, équipe, engagements, avis, FAQ et informations pratiques. La prise de rendez-vous est directement orientée vers WhatsApp, avec également un formulaire de contact. Le site intègre une structure SEO complète et des données structurées pour améliorer sa compréhension par les moteurs de recherche.",
+    impact: "Parcours utilisateur pensé autour de la prise de rendez-vous, accès rapide à WhatsApp, au téléphone et au formulaire, présentation claire des soins et tarifs, expérience optimisée pour mobile et base SEO complète (Open Graph, Twitter Cards, sitemap, robots.txt, JSON-LD).",
+    shortDesc: "Landing page premium conçue pour un cabinet dentaire à Cocody, avec une approche orientée confiance, prise de rendez-vous et conversion.",
+    image: "/theewite.png",
+    technologies: [],
+    stack: ["HTML5", "CSS3", "JavaScript Vanilla", "SVG · JSON-LD"],
+    demoUrl: "https://cabinet-dentaire-theewite.vercel.app/",
+    githubUrl: "https://github.com/morel156/cabinet-dentaire-theewite",
+    year: 2026,
+    featured: true,
+    stats: {
+      "Type de projet": "Landing page",
+      "Responsive": "100 %",
+      "Pages principales": "1",
+      "Breakpoints responsive": "3",
+      "Dépendances de build": "0",
+    }
+  },
+  {
+    id: 8,
+    title: "Clara Beauty — Institut & Boutique Cosmétique",
+    slug: "clara-beauty-institut-boutique-cosmetique",
+    category: "Institut de beauté",
+    problem: "Un institut de beauté doit pouvoir présenter son univers, ses prestations et ses tarifs tout en donnant envie de réserver. Il doit également pouvoir valoriser ses produits et créer un parcours simple entre découverte, confiance, réservation et achat.",
+    solution: "Conception d'une plateforme vitrine immersive combinant l'identité premium d'un institut de beauté avec les fonctionnalités d'une boutique cosmétique. Le site présente les soins visage et corps, massages, manucure/pédicure, épilation et espace hommes, ainsi que des rituels signature et une sélection de produits. Un système de réservation permet au visiteur de choisir sa prestation, son profil, sa date et son créneau, puis d'envoyer sa demande par WhatsApp ou e-mail.",
+    impact: "Centralisation des prestations et de la boutique dans une même expérience, parcours de réservation clairement intégré, mise en valeur des rituels signature, prix et durées affichés pour faciliter la décision, expérience dédiée aux hommes et livraison mise en avant sur Abomey-Calavi et Cotonou.",
+    shortDesc: "Expérience web premium conçue pour un institut de beauté et une boutique cosmétique à Abomey-Calavi, réunissant prestations, réservation, rituels beauté et catalogue de produits.",
+    image: "/clara-beauty.png",
+    technologies: [],
+    stack: ["HTML5", "CSS3", "JavaScript"],
+    demoUrl: "https://clarabeautysite.vercel.app/",
+    githubUrl: "https://github.com/morel156/Clara",
+    year: 2026,
+    featured: true,
+    stats: {
+      "Prestations principales": "6",
+      "Offres disponibles": "3",
+      "Canaux de réservation": "2",
+      "Soins réalisés présentés": "4200",
+      "Note mise en avant": "4,9/5",
+    }
   },
 ];
 
@@ -462,30 +510,17 @@ export default function ProjectsPage() {
 
                     {/* Capture (mockup navigateur) + stats (desktop uniquement) */}
                     <div className="relative hidden lg:flex flex-col justify-center gap-5">
-                      {/* Cadre navigateur */}
+                      {/* Capture pleine (aucun recadrage) */}
                       <div className="rounded-xl overflow-hidden border border-slate-200 shadow-[0_25px_60px_-20px_rgba(15,23,42,0.4)] bg-white">
-                        <div className="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-200">
-                          <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                          <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-                          <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-                          <div className="ml-3 flex-1 h-6 rounded-md bg-white border border-slate-200 flex items-center gap-1.5 px-2.5">
-                            <FiGlobe size={11} className="text-slate-400 flex-shrink-0" />
-                            <span className="text-slate-400 text-[11px] truncate">
-                              {project.demoUrl && project.demoUrl !== "#"
-                                ? project.demoUrl.replace(/^https?:\/\//, "")
-                                : `${project.slug}.app`}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-blue-100 to-blue-50">
+                        <div className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-blue-50">
                           {project.image ? (
                             <img
                               src={project.image}
                               alt={project.title}
-                              className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                              className="w-full h-auto block group-hover:scale-[1.03] transition-transform duration-500"
                             />
                           ) : (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                            <div className="aspect-video flex flex-col items-center justify-center gap-3">
                               <FiCode size={64} className="text-[#2563EB] opacity-20" />
                               <p className="text-slate-400 font-semibold text-sm">{project.title}</p>
                             </div>
