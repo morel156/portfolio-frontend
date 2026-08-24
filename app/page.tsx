@@ -544,14 +544,41 @@ const ExpertiseCard = ({ card }: { card: (typeof expertiseCards)[number] }) => {
 // ─── ProjectsCarousel ─────────────────────────────────────────────────────────
 function ProjectsCarousel({ items }: { items: typeof projects }) {
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   const prev = () => setCurrent((c) => (c === 0 ? items.length - 1 : c - 1));
   const next = () => setCurrent((c) => (c === items.length - 1 ? 0 : c + 1));
 
-  const project = items[current];
+  // La liste change en cours de route (repli en dur → projets de l'API) :
+  // si elle rétrécit, on revient au premier projet plutôt que de lire une
+  // case vide.
+  useEffect(() => {
+    setCurrent((c) => (c >= items.length ? 0 : c));
+  }, [items.length]);
+
+  // Défilement auto : 6,5 s par projet, en pause au survol et au focus clavier.
+  // Le timer dépend de `current`, donc une navigation manuelle relance le délai
+  // complet au lieu de couper court au projet qu'on vient d'ouvrir.
+  useEffect(() => {
+    if (items.length < 2 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setTimeout(
+      () => setCurrent((c) => (c === items.length - 1 ? 0 : c + 1)),
+      6500
+    );
+    return () => clearTimeout(id);
+  }, [current, paused, items.length]);
+
+  const project = items[current] ?? items[0];
 
   return (
-    <div className="w-full">
+    <div
+      className="w-full"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div className="relative bg-white/10 border border-white/20 rounded-3xl overflow-hidden">
 
         <div className="absolute inset-0 lg:hidden z-0">
