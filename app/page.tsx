@@ -8,6 +8,7 @@ import "./responsive.css";
 import { useSiteData } from "@/lib/useSiteData";
 import { apiBaseUrl } from "@/lib/backend";
 import { mediaUrl } from "@/lib/media";
+import { hardcodedProjectImage } from "@/lib/projectImages";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiAward, FiShield, FiClock, FiLayout, FiBriefcase, FiBarChart2,
@@ -1014,7 +1015,10 @@ export default function HomePage() {
     site.projects && site.projects.length
       ? site.projects.map((p: any, i: number) => {
           const base = projects[i % projects.length];
-          const img = mediaUrl(p.featured_image);
+          // La capture locale du projet prime sur celle de l'API : le backend
+          // peut être endormi, et un `featured_image` mal renseigné côté admin
+          // affichait la capture de StabilIT partout.
+          const img = hardcodedProjectImage(p) || mediaUrl(p.featured_image);
           return {
             icon: base.icon,
             cat: p.category ?? base.cat,
@@ -1028,7 +1032,10 @@ export default function HomePage() {
               Array.isArray(p.technologies) && p.technologies.length
                 ? p.technologies
                 : base.tags,
-            image: img || base.image,
+            // Le repli par position ne vaut que dans la plage des projets en
+            // dur : au-delà, `i % length` reboucle sur StabilIT et collerait sa
+            // capture à un projet ajouté depuis l'admin.
+            image: img || (i < projects.length ? base.image : ""),
             live: p.demo_url ?? "",
             repo: p.github_url ?? "",
           };

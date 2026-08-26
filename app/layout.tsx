@@ -78,11 +78,14 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: `${brand} — Portfolio`,
       title,
       description,
+      // Carte de partage du portfolio lui-même (WhatsApp, LinkedIn, X…).
+      // Surtout pas une capture de projet : /Accueil_partie1.png est celle de
+      // StabilIT, elle laissait croire qu'on partageait StabilIT.
       images: [
         {
-          url: "/Accueil_partie1.png",
-          width: 1882,
-          height: 913,
+          url: "/og-portfolio.png",
+          width: 1200,
+          height: 630,
           alt: `Portfolio de ${brand} — Développeur Full Stack`,
         },
       ],
@@ -91,7 +94,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["/Accueil_partie1.png"],
+      images: ["/og-portfolio.png"],
     },
   };
 }

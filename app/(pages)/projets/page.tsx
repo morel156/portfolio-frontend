@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useSiteData } from "@/lib/useSiteData";
 import { mediaUrl } from "@/lib/media";
+import { hardcodedProjectImage } from "@/lib/projectImages";
 import {
   FiGithub, FiExternalLink, FiArrowRight, FiPhone, FiMail, FiMapPin,
   FiFilter, FiX, FiStar, FiTrendingUp, FiZap, FiCode, FiDatabase,
@@ -256,7 +257,8 @@ export default function ProjectsPage() {
           solution: p.solution ?? "",
           impact: p.impact ?? "",
           shortDesc: p.description ?? "",
-          image: p.featured_image ? mediaUrl(p.featured_image) : "",
+          // Capture locale prioritaire : elle reste juste même backend éteint.
+          image: hardcodedProjectImage(p) || (p.featured_image ? mediaUrl(p.featured_image) : ""),
           technologies: filterIds,
           stack,
           demoUrl: p.demo_url || "#",
